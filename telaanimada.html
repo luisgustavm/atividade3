@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mistérios Cósmicos</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js"></script>
+  <script src="script3.js" defer></script>
+  <script src="script2.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+<body>
+ <header class="menu-topo">
+    <h1>Mistérios Cósmicos</h1>
+    <nav>
+    <button onclick="window.location.href='conteudo.html'">Início</button>
+      <button onclick="window.location.href='part4.html'">Planetas</button>
+      <button onclick="window.location.href='telaanimada.html'">Mistérios Cósmicos</button>
+            <button onclick="window.location.href='video.html'">Videos</button>
+      <button onclick="window.location.href='part2.html'">Quiz</button>
+    <button onclick="window.location.href='jogo.html'">jogo</button>
+      <button onclick="window.location.href='loja.html'">Loja</button>
+      <button onclick="window.location.href='part3.html'">Feedback</button>
+
+    </nav>
+      <div class="saldo-estrelas">⭐ <span id="moedaSaldo">0</span></div>
+  </header>
+
+<canvas id="estrelasCanvas"></canvas>
+
+  <div class="espacos">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg/1200px-Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg" class="objeto nebulosa" onclick="mostrarInfo('nebulosa')" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Pillars_of_Creation_%28NIRCam_Image%29.jpg/1200px-Pillars_of_Creation_%28NIRCam_Image%29.jpg" class="objeto pilar" onclick="mostrarInfo('pilar')" />
+    <img src="https://cdn.eso.org/images/screen/eso2407a.jpg" class="objeto pulsar" onclick="mostrarInfo('pulsar')" />
+    <img src="https://cdn.eso.org/images/screen/eso1103a.jpg" class="objeto estrela" onclick="mostrarInfo('estrela')" />
+<div class="info" id="infoBox"></div>
+
+ <footer class="rodape2">
+    <p>&copy; 2025 Universo Interativo. Todos os direitos reservados.</p>
+     <img src="img/logo2.png" alt="Imagem do planeta" class="imagem-pequena2"/>
+  </footer>
+
+
+<!-- Avatar no canto -->
+<div class="user-avatar" id="userAvatar">
+  <img src="https://i.pravatar.cc/50" alt="Avatar do usuário" />
+</div>
+
+<!-- Janela de informações -->
+<div class="user-info-popup" id="userInfoPopup">
+  <h3>Informações do Usuário</h3>
+  <p><strong>Nome:</strong> <span></span></p>
+  <p><strong>Email:</strong> <span></span></p>
+  <button id="closePopup">Fechar</button>
+  <button id="btnLogout" class="btn-logout" onclick="logout()">Sair</button>
+  <input type="file" id="avatarInput" accept="image/*" style="display: none;" />
+<button id="changeAvatarBtn" class="change-avatar-btn">Trocar Foto</button>
+</div>
+
+</body>
+</head>
+</html>

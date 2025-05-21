@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sistema Solar em 3D</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+  <script src="script2.js" defer></script>
+  <script src="script3.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body { 
+      margin: 0;
+      background-image: url('img/estrelas.jpg');
+      overflow: hidden; 
+    }
+    #estrelasCanvas { position: fixed; top: 0; left: 0; z-index: 0; }
+    .planeta3d {
+      position: absolute;
+      width: 8vw;
+      height: 8vw;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="estrelasCanvas"></canvas>
+  <header class="menu-topo">
+    <h1>Sistema Solar em 3D</h1>
+    <nav>
+      <button onclick="window.location.href='conteudo.html'">Início</button>
+      <button onclick="window.location.href='part4.html'">Planetas</button>
+      <button onclick="window.location.href='telaanimada.html'">Mistérios Cósmicos</button>
+            <button onclick="window.location.href='video.html'">Videos</button>
+      <button onclick="window.location.href='part2.html'">Quiz</button>
+      <button onclick="window.location.href='part3.html'">Feedback</button>
+      <button onclick="window.location.href='loja.html'">Loja</button>
+    </nav>
+    <div class="saldo-estrelas">⭐ <span id="moedaSaldo">0</span></div>
+  </header>
+
+  <main>
+    <div id="sistema-solar">
+         <div id="sol3d" class="planeta3d" style="top: 50%; left: 5%; width: 30vw; height: 30vw;"></div>
+    <div id="mercurio3d" class="planeta3d" style="top: 50%; left: 22%; width: 10vw; height: 4vw;"></div>
+    <div id="venus3d" class="planeta3d" style="top: 50%; left: 28%; width: 10vw; height: 5vw;"></div>
+    <div id="terra3d" class="planeta3d" style="top: 50%; left: 35%; width: 10vw; height: 5.5vw;"></div>
+    <div id="marte3d" class="planeta3d" style="top: 50%; left: 42%; width: 10vw; height: 4.5vw;"></div>
+    <div id="jupiter3d" class="planeta3d" style="top: 50%; left: 51%; width: 10vw; height: 11vw;"></div>
+    <div id="saturno3d" class="planeta3d" style="top: 50%; left: 68%; width: 30vw; height: 10vw;"></div>
+    <div id="urano3d" class="planeta3d" style="top: 50%; left: 83%; width: 10vw; height: 7vw;"></div>
+    <div id="netuno3d" class="planeta3d" style="top: 50%; left: 93%; width: 10vw; height: 7vw;"></div>
+  </div>
+ <footer class="rodape2">
+    <p>&copy; 2025 Universo Interativo. Todos os direitos reservados.</p>
+     <img src="img/logo2.png" alt="Imagem do planeta" class="imagem-pequena2"/>
+  </footer>
+
+  </main>
+ <div class="user-avatar" id="userAvatar">
+    <img src="https://i.pravatar.cc/50" alt="Avatar do usuário" />
+  </div>
+
+  <div class="user-info-popup" id="userInfoPopup">
+    <h3>Informações do Usuário</h3>
+    <p><strong>Nome:</strong> <span></span></p>
+    <p><strong>Email:</strong> <span></span></p>
+    <button id="closePopup">Fechar</button>
+    <button id="btnLogout" class="btn-logout" onclick="logout()">Sair</button>
+    <input type="file" id="avatarInput" accept="image/*" style="display: none;" />
+    <button id="changeAvatarBtn" class="change-avatar-btn">Trocar Foto</button>
+</body>
+  <script type="module" src="script4.js"></script>
+</body>
+</html>
+
+ 
