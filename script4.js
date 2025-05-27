@@ -1,4 +1,3 @@
-// sistemaSolar.js
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js';
 
 export function abrirInfo(planetaNome) {
@@ -11,7 +10,8 @@ export function abrirInfo(planetaNome) {
     saturno: 6,
     urano: 7,
     netuno: 8,
-    sol: 21
+    sol: 21,
+    plutao:9
   };
 
   const numeroPlaneta = mapaPlanetas[planetaNome];
@@ -24,7 +24,32 @@ export function abrirInfo(planetaNome) {
 
 function criarPlaneta(id, texturaURL, planetaNome) {
   const container = document.getElementById(id);
+
+  // Remove canvas antigo e libera contexto
+  const canvasAntigo = container.querySelector('canvas');
+  if (canvasAntigo) {
+    const gl = canvasAntigo.getContext('webgl') || canvasAntigo.getContext('experimental-webgl');
+    if (gl) {
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
+    }
+    container.removeChild(canvasAntigo);
+  }
+
+  // Remove event listener antigo, se existir
+  if (!criarPlaneta.listeners) criarPlaneta.listeners = {};
+  if (criarPlaneta.listeners[id]) {
+    container.removeEventListener('click', criarPlaneta.listeners[id]);
+  }
+
+  // Cria novo event listener e guarda referência
+  const clickHandler = () => abrirInfo(planetaNome);
+  container.addEventListener('click', clickHandler);
+  criarPlaneta.listeners[id] = clickHandler;
+
+  // --- resto do código original ---
+
   const scene = new THREE.Scene();
+
   const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(container.clientWidth, container.clientHeight);
@@ -68,12 +93,19 @@ function criarPlaneta(id, texturaURL, planetaNome) {
   scene.add(sphere);
 
   let ring = null;
+  let grupoLua = null;
+  let atmosphere = null;
+
+  // Variáveis para animação
+  let anguloLuz = 0;
+  let tempo = 0;
 
   if (planetaNome === 'terra') {
-    const grupoLua = new THREE.Group();
+    grupoLua = new THREE.Group();
     const texturaLua = new THREE.TextureLoader().load('img/planetas/Lua.jpg');
     const materialLua = new THREE.MeshStandardMaterial({ map: texturaLua });
     const lua = new THREE.Mesh(new THREE.SphereGeometry(0.27, 32, 32), materialLua);
+
     const textureNuvens = new THREE.TextureLoader().load('img/Nuvens.jpg');
     const atmosphereMaterial = new THREE.MeshPhongMaterial({
       map: textureNuvens,
@@ -82,7 +114,7 @@ function criarPlaneta(id, texturaURL, planetaNome) {
       depthWrite: false
     });
 
-    const atmosphere = new THREE.Mesh(
+    atmosphere = new THREE.Mesh(
       new THREE.SphereGeometry(1.07, 64, 64),
       atmosphereMaterial
     );
@@ -91,28 +123,6 @@ function criarPlaneta(id, texturaURL, planetaNome) {
     grupoLua.add(lua);
     sphere.add(grupoLua);
     sphere.add(atmosphere);
-
-    function animate() {
-      requestAnimationFrame(animate);
-
-      anguloLuz += 0.002;
-      tempo += 0.002;
-
-      directionalLight.position.set(
-        Math.sin(anguloLuz) * 5,
-        3,
-        Math.cos(anguloLuz) * 5
-      );
-
-      sphere.rotation.y += 0.0005;
-      sphere.position.y = Math.sin(tempo) * 0.05;
-
-      if (ring) ring.rotation.z += 0.0005;
-
-      grupoLua.rotation.y += 0.01;
-
-      renderer.render(scene, camera);
-    }
   }
 
   if (planetaNome === 'venus') {
@@ -124,7 +134,7 @@ function criarPlaneta(id, texturaURL, planetaNome) {
       depthWrite: false
     });
 
-    const atmosphere = new THREE.Mesh(
+    atmosphere = new THREE.Mesh(
       new THREE.SphereGeometry(1.07, 64, 64),
       atmosphereMaterial
     );
@@ -156,16 +166,12 @@ function criarPlaneta(id, texturaURL, planetaNome) {
   }
 
   camera.position.z = 3;
-  container.addEventListener('click', () => abrirInfo(planetaNome));
-
-  let anguloLuz = 0;
-  let tempo = 0;
 
   function animate() {
     requestAnimationFrame(animate);
 
-    anguloLuz += 0.001;
-    tempo += 0.001;
+    anguloLuz += 0.0005;
+    tempo += 0.0005;
 
     directionalLight.position.set(
       Math.sin(anguloLuz) * 5,
@@ -173,11 +179,15 @@ function criarPlaneta(id, texturaURL, planetaNome) {
       Math.cos(anguloLuz) * 5
     );
 
-    sphere.rotation.y += 0.0005;
+    sphere.rotation.y += 0.00025;
     sphere.position.y = Math.sin(tempo) * 0.05;
 
     if (ring) {
-      ring.rotation.z += 0.005;
+      ring.rotation.z += 0.0025;
+    }
+
+    if (grupoLua) {
+      grupoLua.rotation.y += 0.005;
     }
 
     renderer.render(scene, camera);
@@ -192,6 +202,7 @@ function criarPlaneta(id, texturaURL, planetaNome) {
   });
 }
 
+
 // Criar planetas após DOM estar pronta
 window.addEventListener('DOMContentLoaded', () => {
   criarPlaneta('mercurio3d', 'img/planetas/Mercurio.jpg', 'mercurio');
@@ -203,6 +214,7 @@ window.addEventListener('DOMContentLoaded', () => {
   criarPlaneta('urano3d', 'img/planetas/Urano.jpg', 'urano');
   criarPlaneta('netuno3d', 'img/planetas/Netuno.jpg', 'netuno');
   criarPlaneta('sol3d', 'img/planetas/Sol.jpg', 'sol');
+  criarPlaneta('plutao3d', 'img/planetas/plutao.jpg', 'plutao');
 });
 
 // Expõe a função abrirInfo para o escopo global, para uso fora do módulo

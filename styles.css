@@ -1,12 +1,20 @@
-/* Fundo animado com estrelas */
 body {
  margin: 0;
   padding: 0;
   min-height: 100%;
-  background: linear-gradient(-45deg, #020024, #000000, #040d2e);
+  background-image: url(img/estrelas.jpg);
   font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
   background-attachment: fixed
+}
+body.centralizado {
+  display: flex;
+  flex-direction: column;      /* empilha os elementos verticalmente */
+  align-items: center;         /* centraliza horizontalmente */
+  justify-content: flex-start; /* alinha tudo no topo da tela */
+  min-height: 100vh;
+  padding-top: 40px;           /* espaço do topo para o título */
+  text-align: center;          /* centraliza o texto do título */
 }
 
 
@@ -342,6 +350,13 @@ position: fixed;
 
 /* Pop-up escondido por padrão */
 .user-info-popup {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 2px solid #ffffff44;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
   position: fixed;
   bottom: 80px; /* logo acima do avatar */
   right: 20px;
@@ -437,6 +452,26 @@ position: fixed;
   border-radius: 20px;
   backdrop-filter: blur(5px);
 }
+
+.quiz-container {
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#resultadoContainer {
+max-width: 700px;
+width: 100%;
+text-align: center;
+}
+
+#resultadoContainer > div {
+margin-bottom: 15px;
+border-bottom: 1px solid #444;
+padding-bottom: 10px;
+}
+
 .hero2 {
   text-align: center;
   margin-top: 40px; /* diminui de 100px para 40px */
@@ -483,12 +518,7 @@ position: fixed;
   margin: 10px 0;
   font-size: 1.1em;
 }
-.quiz-container {
-  text-align: left;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
+
 .depoimentos {
   max-width: 600px;
   margin: 40px auto;
@@ -689,6 +719,15 @@ button[type="submit"]:hover {
   background-color: #e0c200;
 }
 
+.planeta3d {
+  width: clamp(30px, 8vw, 80px);
+  height: clamp(30px, 8vw, 80px);
+  transition: transform 0.6s ease;
+}
+
+.planeta3d:hover {
+  transform: scale(1.1) translate(-50%, -50%);
+}
 
 .rodape2 {
   position: fixed;

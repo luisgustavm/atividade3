@@ -1,5 +1,5 @@
   // === Quiz ===
-  const perguntas = [
+   const perguntas = [
   {
     pergunta: "Qual planeta é conhecido por seus anéis?",
     opcoes: ["Júpiter", "Saturno", "Netuno", "Marte"],
@@ -78,3 +78,35 @@
       quizForm.appendChild(div);
     });
   }
+
+  // Função para enviar quiz (pode ser chamada no evento submit do formulário)
+  window.enviarQuiz = function () {
+    const respostasUsuario = [];
+    let todasRespondidas = true;
+
+    perguntas.forEach((q, i) => {
+      const radios = document.getElementsByName(`q${i}`);
+      let respostaSelecionada = null;
+
+      for (const radio of radios) {
+        if (radio.checked) {
+          respostaSelecionada = parseInt(radio.value);
+          break;
+        }
+      }
+
+      if (respostaSelecionada === null) {
+        todasRespondidas = false;
+      }
+
+      respostasUsuario.push(respostaSelecionada);
+    });
+
+    if (!todasRespondidas) {
+      alert("Responda todas as perguntas antes de enviar.");
+      return;
+    }
+
+    localStorage.setItem("respostasUsuario", JSON.stringify(respostasUsuario));
+    window.open("resultado.html", "_blank");
+  };

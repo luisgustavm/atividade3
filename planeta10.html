@@ -65,7 +65,19 @@
       <button onclick="window.location.href='part1.html'" class="btn-saiba-mais">Voltar</button>
     </div>
   </main>
+ <div class="user-avatar" id="userAvatar">
+    <img src="https://i.pravatar.cc/50" alt="Avatar do usuário" />
+  </div>
 
+  <div class="user-info-popup" id="userInfoPopup">
+    <h3>Informações do Usuário</h3>
+    <p><strong>Nome:</strong> <span></span></p>
+    <p><strong>Email:</strong> <span></span></p>
+    <button id="closePopup">Fechar</button>
+    <button id="btnLogout" class="btn-logout" onclick="logout()">Sair</button>
+    <input type="file" id="avatarInput" accept="image/*" style="display: none;" />
+    <button id="changeAvatarBtn" class="change-avatar-btn">Trocar Foto</button>
+</body>
   <footer class="rodape">
     <p>&copy; 2025 Universo Interativo. Todos os direitos reservados.</p>
     <img src="img/logo2.png" alt="Imagem do planeta" class="imagem-pequena2" />

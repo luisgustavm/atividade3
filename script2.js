@@ -33,15 +33,15 @@ function atualizarInventario() {
         img.src = 'img/oculos.png';
         img.alt = 'Óculos';
         break;
-         case 'aneis':
+      case 'aneis':
         img.src = 'img/aneis.png';
         img.alt = 'Anel';
         break;
-        case 'bone':
+      case 'bone':
         img.src = 'img/bone.png';
         img.alt = 'Boné';
         break;
-         case 'estrela':
+      case 'estrela':
         img.src = 'img/estrela.png';
         img.alt = 'Estrela';
         break;
@@ -53,7 +53,7 @@ function atualizarInventario() {
         img.src = 'img/fundo-espaco.png';
         img.alt = 'Fundo Espaço';
         break;
-         case 'fundo2':
+      case 'fundo2':
         img.src = 'img/fundo-sol.png';
         img.alt = 'Fundo Sol';
         break;
@@ -74,14 +74,13 @@ function atualizarInventario() {
       aneis: 'Anel',
       fundo: 'Fundo Buraco Negro',
       fundo1: 'Fundo Espaço',
-       fundo2: 'Fundo Sol'
+      fundo2: 'Fundo Sol'
     })[item] || item;
 
     const botaoEquipar = document.createElement('button');
     botaoEquipar.textContent = 'Equipar';
     botaoEquipar.onclick = () => {
       alert(`Você equipou: ${nome.textContent}`);
-      const userAvatar = document.getElementById('userAvatar');
 
       if (item === 'fundo' || item === 'fundo1' || item === 'fundo2') {
         localStorage.setItem('fundoEquipado', item);
@@ -95,22 +94,24 @@ function atualizarInventario() {
     const botaoDesequipar = document.createElement('button');
     botaoDesequipar.textContent = 'Desequipar';
     botaoDesequipar.onclick = () => {
-  if (item === 'fundo' || item === 'fundo1'|| item === 'fundo2') {
-    localStorage.removeItem('fundoEquipado');
-    aplicarFundo(null);
-  } else {
-    const userAvatar = document.getElementById('userAvatar');
-    const itemNoAvatar = userAvatar.querySelector(`.${item}`);
-    if (itemNoAvatar) userAvatar.removeChild(itemNoAvatar);
+      if (item === 'fundo' || item === 'fundo1' || item === 'fundo2') {
+        localStorage.removeItem('fundoEquipado');
+        aplicarFundo(null);
+      } else {
+        const userAvatar = document.getElementById('userAvatar');
+        if (userAvatar) {
+          const itemNoAvatar = userAvatar.querySelector(`.${item}`);
+          if (itemNoAvatar) userAvatar.removeChild(itemNoAvatar);
+        }
 
-    // Remove só o item específico
-    const equipados = JSON.parse(localStorage.getItem('itensAvatarEquipados')) || {};
-    delete equipados[item];
-    localStorage.setItem('itensAvatarEquipados', JSON.stringify(equipados));
-  }
+        // Remove só o item específico
+        const equipados = JSON.parse(localStorage.getItem('itensAvatarEquipados')) || {};
+        delete equipados[item];
+        localStorage.setItem('itensAvatarEquipados', JSON.stringify(equipados));
+      }
 
-  alert(`Você desequipou: ${nome.textContent}`);
-};
+      alert(`Você desequipou: ${nome.textContent}`);
+    };
 
     const botoesDiv = document.createElement('div');
     botoesDiv.style.display = 'flex';
@@ -169,6 +170,10 @@ function aplicarFundo(item) {
 // Equipa item no avatar (visual)
 function equiparNoAvatar(item) {
   const userAvatar = document.getElementById('userAvatar');
+  if (!userAvatar) {
+    console.warn('Elemento #userAvatar não encontrado. Ignorando equiparNoAvatar.');
+    return;
+  }
 
   if (userAvatar.querySelector(`.${item}`)) return;
 
@@ -182,13 +187,13 @@ function equiparNoAvatar(item) {
     case 'oculos':
       imgEquipado.src = 'img/oculos.png';
       break;
-      case 'bone':
+    case 'bone':
       imgEquipado.src = 'img/bone.png';
       break;
-      case 'estrela':
+    case 'estrela':
       imgEquipado.src = 'img/estrela.png';
       break;
-      case 'aneis':
+    case 'aneis':
       imgEquipado.src = 'img/aneis.png';
       break;
     default:
@@ -203,13 +208,10 @@ function equiparNoAvatar(item) {
   localStorage.setItem('itensAvatarEquipados', JSON.stringify(equipados));
 }
 
-
 // Carrega itens equipados ao abrir
-// Carrega itens equipados ao abrir, com exceção de algumas páginas
 function carregarItemEquipado() {
-  
   const nomePagina = window.location.pathname.split('/').pop();
-  const paginasSemFundo = ['mapa.html', 'telaanimada.html', 'jogo.html']; // coloque aqui as páginas onde NÃO quer fundo
+  const paginasSemFundo = ['mapa.html', 'telaanimada.html', 'jogo.html']; // páginas onde NÃO quer fundo
 
   const fundoItem = localStorage.getItem('fundoEquipado');
   const itensAvatar = JSON.parse(localStorage.getItem('itensAvatarEquipados')) || {};
@@ -230,7 +232,6 @@ window.addEventListener('DOMContentLoaded', () => {
   atualizarSaldo();
   atualizarInventario();
 });
-
 
 // Ganha 1 moeda a cada 10 segundos
 setInterval(() => {
