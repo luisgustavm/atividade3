@@ -11,7 +11,7 @@ export function abrirInfo(planetaNome) {
     saturno: 6,
     urano: 7,
     netuno: 8,
-    sol: 0
+    sol: 21
   };
 
   const numeroPlaneta = mapaPlanetas[planetaNome];
